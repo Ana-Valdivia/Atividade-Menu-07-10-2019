@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ETEC-20191007</string>
+    <string name="editar">EDITAR</string>
+    <string name="excluir">EXCLUIR</string>
 </resources>
