@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements CustomDialog.ItemListener,AdapterView.OnLongClickListener{
+public class MainActivity extends AppCompatActivity implements CustomDialog.ItemListener,AdapterView.OnItemLongClickListener{
 
     private boolean insertMode;
     private ItemAdapter adapter;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
 
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        listView.setOnItemLongClickListener(this);
 
     }
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
     }
 
     @Override
-    public boolean onLongClick(View view) {
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         PopupMenu popup = new PopupMenu(this,view);
         popup.inflate(R.menu.popup);
         popup.show();
