@@ -1,5 +1,7 @@
 package br.com.etechoracio.atividade;
 
+import android.nfc.Tag;
+import android.nfc.TagLostException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
         listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setOnItemLongClickListener(this);
+
+
 
     }
 
@@ -69,15 +73,40 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Item
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         PopupMenu popup = new PopupMenu(this,view);
         popup.inflate(R.menu.popup);
+        popup.setOnMenuItemClickListener(this);
+
         popup.show();
 
+        selectedItem = i;
+
+        selectedItemName=adapter.getItem(i).toString();
         return true;
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        adapter.removeItem(selectedItem);
 
+     switch (menuItem.getItemId())
+     {
+         case R.id.excluir:
+            adapter.removeItem(selectedItem);
+            insertMode = false;
+
+            return true;
+
+         case R.id.editar:
+             CustomDialog dialog = new CustomDialog(this);
+             dialog.setItem(selectedItemName);
+             dialog.show(getFragmentManager(),"editar");
+
+             insertMode = false;
+
+             return true;
+
+         default:
+             return super.onOptionsItemSelected(menuItem);
+
+     }
 
     }
 }
